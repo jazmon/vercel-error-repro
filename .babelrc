@@ -1,0 +1,16 @@
+{
+  "presets": [[
+    "next/babel",
+    {
+      "preset-env": {
+        "useBuiltIns": "entry",
+        "corejs": "3.6"
+      },
+      "preset-react": {
+        "runtime": "automatic",
+        "importSource": "theme-ui"
+      }
+    }
+  ]],
+  "plugins": ["@emotion"]
+}
