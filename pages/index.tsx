@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import BaseLayout from '../components/BaseLayout'
 
 const myStyle = css`
@@ -11,19 +11,57 @@ const Button = styled.button`
   color: blue;
 `
 
-export default function Home(): JSX.Element {
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+type Page = {
+  title: string
+}
+
+const getPageIdBySlug = async (slug: string) => {
+  if (slug === '/') return 'home'
+  return null
+}
+
+const getPageById = async (id: string): Promise<Page> => {
+  await sleep(200)
+  return { title: 'My page ' + id }
+}
+
+type Maybe<T> = T | null
+
+type Props = {
+  page?: Maybe<Page>
+}
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const slug = '/'
+
+  const id = await getPageIdBySlug(slug)
+
+  if (!id) {
+    return {
+      notFound: true,
+    }
+  }
+
+  const page = await getPageById(id!)
+
+  return {
+    props: {
+      page,
+    },
+    revalidate: 300, // Seconds. Revalidate existing pages every 5 minutes
+  }
+}
+
+export default function Home({ page }: Props): JSX.Element {
   return (
     <BaseLayout footer>
       <div className="container">
-        <Head>
-          <title>Create Next App</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
         <main css={myStyle}>
-          <h1 className="title">
-            Welcome to <a href="https://nextjs.org">Next.js!</a>
-          </h1>
+          <h1 className="title">{page.title}</h1>
 
           <p className="description">
             Get started by editing <code>pages/index.tsx</code>
