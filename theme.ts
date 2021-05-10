@@ -1,4 +1,4 @@
-import { Theme, ContextValue, useThemeUI } from 'theme-ui'
+import { Theme, ThemeUIContextValue, useThemeUI } from 'theme-ui'
 
 const makeTheme = <T extends Theme>(t: T) => t
 const theme = makeTheme({
@@ -21,7 +21,7 @@ export type ExactTheme = typeof theme
 
 export default theme
 
-interface ExactContextValue extends Omit<ContextValue, 'theme'> {
+interface ExactContextValue extends Omit<ThemeUIContextValue, 'theme'> {
   theme: ExactTheme
 }
-export const useTheme = (useThemeUI as unknown) as () => ExactContextValue
+export const useTheme = useThemeUI as unknown as () => ExactContextValue
