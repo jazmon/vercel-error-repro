@@ -1,26 +1,16 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import Head from 'next/head'
 import BaseLayout from '../components/BaseLayout'
 
-const myStyle = css`
-  background-color: hotpink;
-`
-
-const Button = styled.button`
-  color: blue;
-`
-
 export default function Home(): JSX.Element {
   return (
-    <BaseLayout footer>
+    <BaseLayout>
       <div className="container">
         <Head>
           <title>Create Next App</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main css={myStyle}>
+        <main>
           <h1 className="title">
             Welcome to <a href="https://nextjs.org">Next.js!</a>
           </h1>
@@ -28,14 +18,6 @@ export default function Home(): JSX.Element {
           <p className="description">
             Get started by editing <code>pages/index.tsx</code>
           </p>
-
-          <Button
-            onClick={() => {
-              window.alert('With typescript and Jest')
-            }}
-          >
-            Test Button
-          </Button>
 
           <div sx={{ color: (t) => t.colors.background }}>Hello world</div>
 

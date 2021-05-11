@@ -1,16 +1,11 @@
 import Head from 'next/head'
 import { Flex, Heading } from 'theme-ui'
-import Footer from './Footer'
-
-// type Maybe<T> = T | null
 type BaseLayoutProps = {
-  // preview: boolean
   children: React.ReactNode
-  footer?: boolean
 }
 
 export default function BaseLayout(props: BaseLayoutProps): JSX.Element {
-  const { children, footer } = props
+  const { children } = props
 
   return (
     <Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
@@ -77,7 +72,6 @@ export default function BaseLayout(props: BaseLayoutProps): JSX.Element {
           {children}
         </Flex>
       )}
-      {footer && <Footer />}
     </Flex>
   )
 }
